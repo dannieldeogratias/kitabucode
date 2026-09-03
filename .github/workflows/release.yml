@@ -606,6 +606,7 @@ jobs:
         run: |
           bash scripts/download-termux-tools.sh
           bash scripts/download-node.sh
+          bash scripts/download-python.sh
           bash scripts/download-extensions.sh
       - name: Sync shared libraries to jniLibs
         run: |
