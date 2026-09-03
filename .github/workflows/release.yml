@@ -607,39 +607,19 @@ jobs:
           bash scripts/download-termux-tools.sh
           bash scripts/download-node.sh
           bash scripts/download-extensions.sh
+      - name: Sync shared libraries to jniLibs
+        run: |
+          mkdir -p android/app/src/main/jniLibs/arm64-v8a
+          cp -f android/app/src/main/assets/usr/lib/*.so* \
+            android/app/src/main/jniLibs/arm64-v8a/ 2>/dev/null || true
+          cp -f toolchains/termux-packages/extracted/*/data/data/com.termux/files/usr/lib/*.so* \
+            android/app/src/main/jniLibs/arm64-v8a/ 2>/dev/null || true
+
       - name: Compile the instrumented tests
         working-directory: android
-        working-directory: ./android
         run: |
-        mkdir -p android/app/src/main/jniLibs/arm64-v8a
-        cp -f android/app/src/main/assets/usr/lib/*.so* android/app/src/main/jniLibs/arm64-v8a/ 2>/dev/null || true
-        cp -f toolchains/termux-packages/extracted/*/data/data/com.termux/files/usr/lib/*.so* android/app/src/main/jniLibs/arm64-v8a/ 2>/dev/null || true
-        # jnilibs_sync
-        - name: Sync shared libraries to jniLibs
-          run: |
-            mkdir -p android/app/src/main/jniLibs/arm64-v8a
-            cp -f android/app/src/main/assets/usr/lib/*.so* android/app/src/main/jniLibs/arm64-v8a/ 2>/dev/null || true
-        ./gradlew assembleDebugAndroidTest
-
-      # Decode signing keystore from base64 secret
-      #
-      # The emptiness test is the whole of the addition, and it is not
-      # theoretical: an unset or cleared KEYSTORE_BASE64 makes base64 read empty
-      # input, exit 0, and leave a zero-byte keystore.jks. The first complaint
-      # then comes from validateSigningRelease inside assembleRelease below,
-      # naming a keystore format rather than the secret, an hour into a release.
-      # A malformed secret already fails here: `base64 -d` is the last command
-      # of the pipeline, so its status is the pipeline's.
-      - name: Decode keystore
-        env:
-          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
-        run: |
-          printf '%s' "$KEYSTORE_BASE64" | base64 -d > android/keystore.jks
-          if [ ! -s android/keystore.jks ]; then
-            echo "::error::KEYSTORE_BASE64 decoded to nothing. The repository" \
-                 "secret is unset or empty; the signing key is not in this build."
-            exit 1
-          fi
+          chmod +x gradlew
+          ./gradlew assembleDebugAndroidTest
 
       - name: Build signed APK
         working-directory: android
