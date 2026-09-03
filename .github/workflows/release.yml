@@ -604,6 +604,7 @@ jobs:
       # here never reaches a step handling a secret.
       - name: Compile the instrumented tests
         working-directory: android
+        working-directory: ./android
         run: ./gradlew assembleDebugAndroidTest
 
       # Decode signing keystore from base64 secret
