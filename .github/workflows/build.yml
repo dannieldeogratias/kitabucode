@@ -326,7 +326,7 @@ jobs:
 
       - name: Build debug APK
         working-directory: android
-        run: ./gradlew assembleDebug
+        run: chmod +x gradlew && ./gradlew assembleDebug
 
       - name: Upload debug APK
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -394,7 +394,7 @@ jobs:
 
       - name: Run unit tests
         working-directory: android
-        run: ./gradlew testDebugUnitTest
+        run: chmod +x gradlew && ./gradlew testDebugUnitTest
 
       # Compiles the instrumented tests without running them, which is the only
       # thing CI can do for them and is better than the nothing that was here.
@@ -436,4 +436,4 @@ jobs:
       # reached neither of this workflow's triggers.
       - name: Compile the instrumented tests
         working-directory: android
-        run: ./gradlew assembleDebugAndroidTest
+        run: chmod +x gradlew && ./gradlew assembleDebugAndroidTest

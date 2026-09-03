@@ -1,7 +1,7 @@
 # KitabuCode Privacy Policy
 
 **Effective Date: February 13, 2026**
-**Last Updated: August 24, 2026**
+**Last Updated: September 3, 2026**
 
 ## Summary
 

@@ -298,7 +298,7 @@ jobs:
 
       - name: Run lint
         working-directory: android
-        run: ./gradlew lint
+        run: chmod +x gradlew && ./gradlew lint
 
       - name: Upload lint report
         if: always()
