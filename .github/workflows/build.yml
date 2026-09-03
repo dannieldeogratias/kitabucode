@@ -148,8 +148,11 @@ jobs:
           done
           # gnupg is on the runner image today, but the Termux index check is a
           # gate: naming it here keeps it from depending on what the image
-          # happens to bake in.
-          sudo apt-get install -y --no-install-recommends libarchive-tools gnupg
+          # happens to bake in. zstd is needed because Termux now packages some
+          # .deb files with data.tar.zst compression (e.g. bash 5.3+); without
+          # it the extraction loop in termux-packages.sh finds no data.tar.* and
+          # fails with "Could not extract data archive".
+          sudo apt-get install -y --no-install-recommends libarchive-tools gnupg zstd
 
       # Download and prepare all assets (only if not cached)
       # Built from the MIT source by build-vscode-oss.yml and published as a
