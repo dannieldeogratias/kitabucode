@@ -1,0 +1,41 @@
+{
+  "name": "kitabucode-process-monitor",
+  "displayName": "KitabuCode Process Monitor",
+  "description": "Monitors phantom process count on Android",
+  "version": "1.2.0",
+  "publisher": "kitabucode",
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "kitabucode.showProcesses",
+        "title": "KitabuCode: Show Process Tree"
+      }
+    ],
+    "configuration": {
+      "title": "KitabuCode",
+      "properties": {
+        "kitabucode.server.heapCeilingMb": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "default": null,
+          "scope": "machine",
+          "minimum": 256,
+          "maximum": 1536,
+          "markdownDescription": "V8 heap ceiling for the editor server, in MB. Leave unset to derive it from device memory (an eighth of RAM, between 256 and 768). Takes effect the next time the app is started. A value larger than this device can hold is reduced automatically, and is turned off after repeated crashes.\n\nThe limit applies to each V8 isolate in the server separately, not to all of them together, so raising it costs several times what the number says."
+        }
+      }
+    }
+  }
+}

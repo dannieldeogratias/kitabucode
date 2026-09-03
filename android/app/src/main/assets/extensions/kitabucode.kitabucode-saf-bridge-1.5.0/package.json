@@ -1,0 +1,73 @@
+{
+  "name": "kitabucode-saf-bridge",
+  "displayName": "KitabuCode Android Bridge",
+  "description": "Commands that reach Android: device folders, browser, SSH keys, storage, about",
+  "version": "1.5.0",
+  "publisher": "kitabucode",
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "browser": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "kitabucode.openFolderFromDevice",
+        "title": "KitabuCode: Open Folder from Device"
+      },
+      {
+        "command": "kitabucode.openRecentFolder",
+        "title": "KitabuCode: Open Recent Folder"
+      },
+      {
+        "command": "kitabucode.openInBrowser",
+        "title": "KitabuCode: Open in Browser"
+      },
+      {
+        "command": "kitabucode.generateSshKey",
+        "title": "KitabuCode: Generate SSH Key"
+      },
+      {
+        "command": "kitabucode.copySshPublicKey",
+        "title": "KitabuCode: Copy SSH Public Key"
+      },
+      {
+        "command": "kitabucode.showStorageUsage",
+        "title": "KitabuCode: Show Storage Usage"
+      },
+      {
+        "command": "kitabucode.manageDeviceFolders",
+        "title": "KitabuCode: Manage Device Folder Storage"
+      },
+      {
+        "command": "kitabucode.clearCaches",
+        "title": "KitabuCode: Clear Caches"
+      },
+      {
+        "command": "kitabucode.manageToolchains",
+        "title": "KitabuCode: Manage Toolchains"
+      },
+      {
+        "command": "kitabucode.about",
+        "title": "KitabuCode: About"
+      }
+    ],
+    "menus": {
+      "statusBar/remoteIndicator": [
+        {
+          "command": "kitabucode.openRecentFolder",
+          "group": "remote_10_kitabucode_folder"
+        },
+        {
+          "command": "kitabucode.about",
+          "group": "remote_90_kitabucode_about"
+        }
+      ]
+    }
+  }
+}

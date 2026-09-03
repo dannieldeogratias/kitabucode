@@ -1,0 +1,82 @@
+{
+  "name": "kitabucode-welcome",
+  "displayName": "KitabuCode Welcome",
+  "description": "Welcome walkthrough for KitabuCode",
+  "version": "1.2.2",
+  "publisher": "kitabucode",
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "kitabucode.welcome.open",
+        "title": "KitabuCode: Open Welcome"
+      },
+      {
+        "command": "kitabucode.welcome.toolsDismissed",
+        "title": "KitabuCode: Dismiss Tools Step"
+      }
+    ],
+    "walkthroughs": [
+      {
+        "id": "kitabucode.welcome",
+        "title": "Get Started with KitabuCode",
+        "description": "Set up your mobile development environment",
+        "steps": [
+          {
+            "id": "theme",
+            "title": "Choose your theme",
+            "description": "Pick a color theme that suits your style.\n\n[Browse Color Themes](command:workbench.action.selectTheme)",
+            "media": {
+              "svg": "media/theme.svg"
+            },
+            "completionEvents": [
+              "onSettingChanged:workbench.colorTheme"
+            ]
+          },
+          {
+            "id": "tools",
+            "title": "Your development tools",
+            "description": "KitabuCode comes with everything you need to start coding:\n\n$(check) **Node.js** + npm: ready\n\n$(check) **Python** + pip: ready\n\n$(check) **Git**: ready\n\n$(check) **make**: ready\n\n**Java 17** and **Ruby** install on demand. Touch and hold the KitabuCode icon on your home screen and pick **Manage toolchains**.\n\n[Got It](command:kitabucode.welcome.toolsDismissed)",
+            "media": {
+              "svg": "media/tools.svg"
+            },
+            "completionEvents": [
+              "onCommand:kitabucode.welcome.toolsDismissed"
+            ]
+          },
+          {
+            "id": "terminal",
+            "title": "A powerful terminal",
+            "description": "Open a full bash terminal with every bundled tool on PATH: ``node``, ``python3``, ``git``, ``npm``.\n\n``node -e 'console.log(\"hi\")'`` prints ``hi``\n\n``python3 -c 'print(\"hi\")'`` prints ``hi``\n\n``git init demo`` prints ``Initialized empty Git repository``\n\n[Open Terminal](command:workbench.action.terminal.new)",
+            "media": {
+              "svg": "media/terminal.svg"
+            },
+            "completionEvents": [
+              "onCommand:workbench.action.terminal.new"
+            ]
+          },
+          {
+            "id": "extensions",
+            "title": "Extend with more features",
+            "description": "Install extensions from the Open VSX marketplace for language support, themes, and tools.\n\nExtensions written in JavaScript work. The few that bundle a program compiled for desktop Linux can install without complaint and then do nothing, with no error on screen.\n\n[Browse Extensions](command:workbench.view.extensions)",
+            "media": {
+              "svg": "media/extensions.svg"
+            },
+            "completionEvents": [
+              "onCommand:workbench.view.extensions"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
