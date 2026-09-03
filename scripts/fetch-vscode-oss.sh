@@ -40,7 +40,15 @@ VSCODE_VERSION="${VSCODE_VERSION:-$(cat "$ROOT_DIR/VSCODE_VERSION")}"
 # nothing read.
 VSCODE_COMMIT="${VSCODE_COMMIT:-$(cat "$ROOT_DIR/VSCODE_COMMIT")}"
 ARCH="${ARCH:-arm64}"
-REPO="${REPO:-rmyndharis/VSCodroid}"
+if [ -z "${REPO:-}" ]; then
+    if [ -n "${GITHUB_REPOSITORY:-}" ]; then
+        REPO="$GITHUB_REPOSITORY"
+    elif git remote get-url origin >/dev/null 2>&1; then
+        REPO="$(git remote get-url origin | sed -E 's/.*github\.com[:\/]([^\/]+\/[^\/\.]+).*/\1/' | sed 's/\.git$//')"
+    else
+        REPO="dannieldeogratias/kitabucode"
+    fi
+fi
 
 TARBALL_NAME="vscode-reh-web-linux-$ARCH-$VSCODE_VERSION.tar.gz"
 TARBALL="$ROOT_DIR/server/$TARBALL_NAME"

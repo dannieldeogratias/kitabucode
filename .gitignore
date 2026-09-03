@@ -180,3 +180,6 @@ toolchain-zips/
 # the generator exists to remove.
 /docs/site/guide.html
 /docs/site/privacy-policy.html
+
+# Local helper scripts/wrappers
+/bin/
