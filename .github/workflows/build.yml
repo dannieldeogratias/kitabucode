@@ -324,6 +324,11 @@ jobs:
       - name: Check the welcome screen states nothing that goes stale
         run: python3 scripts/check-welcome-claims.py
 
+      - name: Download assets and Node runtime
+        run: |
+          bash scripts/download-termux-tools.sh
+          bash scripts/download-node.sh
+          bash scripts/download-extensions.sh
       - name: Build debug APK
         working-directory: android
         run: chmod +x gradlew && ./gradlew assembleDebug

@@ -602,6 +602,11 @@ jobs:
       #
       # Before the keystore, with the rest of the re-run block, so a failure
       # here never reaches a step handling a secret.
+      - name: Download assets and Node runtime
+        run: |
+          bash scripts/download-termux-tools.sh
+          bash scripts/download-node.sh
+          bash scripts/download-extensions.sh
       - name: Compile the instrumented tests
         working-directory: android
         working-directory: ./android
