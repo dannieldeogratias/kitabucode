@@ -330,7 +330,18 @@ termux_extract_packages() {
         mkdir -p "$pkg_extract"
         (
             cd "$pkg_extract"
-            bsdtar xf "$WORK_DIR/debs/$debname" data.tar.xz data.tar.gz data.tar.zst 2>/dev/null || true
+            # Primary: bsdtar reads .deb (ar archive) and pulls the data member.
+            # Suppressed because it exits non-zero when a named member is absent,
+            # which is normal for the three-name probe below.
+            bsdtar xf "$WORK_DIR/debs/$debname" \
+                data.tar.xz data.tar.gz data.tar.zst 2>/dev/null || true
+            # Fallback: if bsdtar left nothing behind (happens when the installed
+            # libarchive does not support the compression format used by this .deb),
+            # use ar(1) from binutils which always ships on Ubuntu runners and
+            # extracts the raw member bytes without attempting decompression.
+            if ! ls data.tar.* >/dev/null 2>&1; then
+                ar x "$WORK_DIR/debs/$debname" 2>/dev/null || true
+            fi
             if [ -f data.tar.xz ]; then
                 tar xf data.tar.xz
             elif [ -f data.tar.gz ]; then
@@ -339,6 +350,11 @@ termux_extract_packages() {
                 zstd -d data.tar.zst -o data.tar && tar xf data.tar
             else
                 echo "  ERROR: Could not extract data archive from $debname" >&2
+                echo "  Members found inside the .deb:" >&2
+                bsdtar tf "$WORK_DIR/debs/$debname" 2>&1 \
+                    || ar t "$WORK_DIR/debs/$debname" 2>&1 \
+                    || echo "    (could not list members)" >&2
+                echo "  Files in extraction dir:" >&2
                 ls -la
                 exit 1
             fi
