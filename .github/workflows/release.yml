@@ -615,6 +615,10 @@ jobs:
         cp -f android/app/src/main/assets/usr/lib/*.so* android/app/src/main/jniLibs/arm64-v8a/ 2>/dev/null || true
         cp -f toolchains/termux-packages/extracted/*/data/data/com.termux/files/usr/lib/*.so* android/app/src/main/jniLibs/arm64-v8a/ 2>/dev/null || true
         # jnilibs_sync
+        - name: Sync shared libraries to jniLibs
+          run: |
+            mkdir -p android/app/src/main/jniLibs/arm64-v8a
+            cp -f android/app/src/main/assets/usr/lib/*.so* android/app/src/main/jniLibs/arm64-v8a/ 2>/dev/null || true
         ./gradlew assembleDebugAndroidTest
 
       # Decode signing keystore from base64 secret

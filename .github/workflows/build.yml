@@ -331,6 +331,10 @@ jobs:
           bash scripts/download-extensions.sh
       - name: Build debug APK
         working-directory: android
+        - name: Sync shared libraries to jniLibs
+          run: |
+            mkdir -p android/app/src/main/jniLibs/arm64-v8a
+            cp -f android/app/src/main/assets/usr/lib/*.so* android/app/src/main/jniLibs/arm64-v8a/ 2>/dev/null || true
         run: chmod +x gradlew && ./gradlew assembleDebug
 
       - name: Upload debug APK
@@ -441,4 +445,8 @@ jobs:
       # reached neither of this workflow's triggers.
       - name: Compile the instrumented tests
         working-directory: android
+        - name: Sync shared libraries to jniLibs
+          run: |
+            mkdir -p android/app/src/main/jniLibs/arm64-v8a
+            cp -f android/app/src/main/assets/usr/lib/*.so* android/app/src/main/jniLibs/arm64-v8a/ 2>/dev/null || true
         run: chmod +x gradlew && ./gradlew assembleDebugAndroidTest
