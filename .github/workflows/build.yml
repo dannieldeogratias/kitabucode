@@ -331,11 +331,12 @@ jobs:
           bash scripts/download-extensions.sh
       - name: Build debug APK
         working-directory: android
-        - name: Sync shared libraries to jniLibs
-          run: |
-            mkdir -p android/app/src/main/jniLibs/arm64-v8a
-            cp -f android/app/src/main/assets/usr/lib/*.so* android/app/src/main/jniLibs/arm64-v8a/ 2>/dev/null || true
         run: chmod +x gradlew && ./gradlew assembleDebug
+
+      - name: Sync shared libraries to jniLibs
+        run: |
+          mkdir -p android/app/src/main/jniLibs/arm64-v8a
+          cp -f android/app/src/main/assets/usr/lib/*.so* android/app/src/main/jniLibs/arm64-v8a/ 2>/dev/null || true    
 
       - name: Upload debug APK
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -443,10 +444,13 @@ jobs:
       #
       # release.yml runs this same task, because a tag may name a commit that
       # reached neither of this workflow's triggers.
+      - name: Sync shared libraries to jniLibs
+        run: |
+          mkdir -p android/app/src/main/jniLibs/arm64-v8a
+          cp -f android/app/src/main/assets/usr/lib/*.so* android/app/src/main/jniLibs/arm64-v8a/ 2>/dev/null || true
+
       - name: Compile the instrumented tests
         working-directory: android
-        - name: Sync shared libraries to jniLibs
-          run: |
-            mkdir -p android/app/src/main/jniLibs/arm64-v8a
-            cp -f android/app/src/main/assets/usr/lib/*.so* android/app/src/main/jniLibs/arm64-v8a/ 2>/dev/null || true
-        run: chmod +x gradlew && ./gradlew assembleDebugAndroidTest
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebugAndroidTest
