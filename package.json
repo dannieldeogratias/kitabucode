@@ -1,6 +1,6 @@
 {
-  "name": "com.foxdebug.acode",
-  "displayName": "Acode",
+  "name": "com.kitabucode.editor",
+  "displayName": "KitabuCode",
   "version": "1.13.3",
   "description": "Acode is a code editor for android",
   "scripts": {

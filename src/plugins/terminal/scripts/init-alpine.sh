@@ -33,7 +33,7 @@ if [ "$INSTALLING" != true ] && [ $# -gt 0 ] && [ "${1#--}" = "$1" ]; then
     exec "$@"
 fi
 
-required_packages="bash command-not-found tzdata wget"
+required_packages="bash command-not-found tzdata wget python3 py3-pip nodejs npm git build-base"
 missing_packages=""
 
 for pkg in $required_packages; do
@@ -44,8 +44,10 @@ done
 
 if [ -n "$missing_packages" ]; then
     echo -e "\e[34;1m[*] \e[0mInstalling important packages\e[0m"
-    apk update && apk upgrade
-    apk add $missing_packages
+    apk update && apk add $missing_packages || {
+        echo "KitabuCode tool installation failed. Connect to the internet and retry terminal setup." >&2
+        exit 1
+    }
     if [ $? -eq 0 ]; then
         echo -e "\e[32;1m[+] \e[0mSuccessfully installed\e[0m"
     fi
@@ -87,7 +89,8 @@ fi
 
     if [ ! -e "$PREFIX/alpine/etc/acode_motd" ]; then
         cat <<EOF > "$PREFIX/alpine/etc/acode_motd"
-Welcome to Alpine Linux in Acode!
+Welcome to KitabuCode!
+Python, Node.js, Git and C/C++ tools run locally after setup.
 
 Working with packages:
 

@@ -16,7 +16,7 @@ export default function AboutInclude() {
 			<Logo />
 
 			<div className="version-info">
-				<h1 className="version-title">Acode editor</h1>
+				<h1 className="version-title">KitabuCode</h1>
 				<div className="version-number">
 					Version {BuildInfo.version} ({BuildInfo.versionCode})
 				</div>
@@ -46,7 +46,7 @@ export default function AboutInclude() {
 						<span className="icon acode"></span>
 					</div>
 					<div className="info-item-text">
-						Official webpage
+						Upstream Acode project
 						<div className="info-item-subtext">{config.BASE_URL}</div>
 					</div>
 				</a>
@@ -55,7 +55,7 @@ export default function AboutInclude() {
 						<span className="icon foxbiz"></span>
 					</div>
 					<div className="info-item-text">
-						Foxbiz Software Pvt. Ltd.
+						Upstream developer: Foxbiz Software Pvt. Ltd.
 						<div className="info-item-subtext">{config.FOXBIZ_URL}</div>
 					</div>
 				</a>
