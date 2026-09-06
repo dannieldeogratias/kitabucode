@@ -33,7 +33,7 @@ if [ "$INSTALLING" != true ] && [ $# -gt 0 ] && [ "${1#--}" = "$1" ]; then
     exec "$@"
 fi
 
-required_packages="bash command-not-found tzdata wget python3 py3-pip nodejs npm git build-base"
+required_packages="bash command-not-found tzdata wget python3 py3-pip py3-lsp-server py3-pyflakes py3-pycodestyle py3-mccabe nodejs npm git build-base"
 missing_packages=""
 
 for pkg in $required_packages; do

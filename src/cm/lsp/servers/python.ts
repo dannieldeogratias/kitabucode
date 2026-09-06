@@ -13,7 +13,7 @@ export const pythonServers: LspServerManifest[] = [
 			executable: "ty",
 			packages: ["ty"],
 		}),
-		enabled: true,
+		enabled: false,
 	}),
 	defineServer({
 		id: "python",
@@ -34,7 +34,7 @@ export const pythonServers: LspServerManifest[] = [
 				},
 			},
 		},
-		enabled: false,
+		enabled: true,
 	}),
 ];
 
